@@ -18,13 +18,15 @@ If you are having any problem, feel free to contact me -
 	Gmail - neural.gen.official@gmail.com
 		Facebook - https://www.facebook.com/neuralgen
 
-
+Made by:- 
+```
 
 			____________   ____       _____
 		       /              /   |      /     \
 		      /		  O  /    |     /       \
-MADE BY -            /_______       /     |    /        |
+                     /_______       /     |    /        |
 		    /		/  /______|   /         |
                    /	       /  /       |  /         /
                   /           /  /        | /         /
                  /           /  /         |/________/
+```
