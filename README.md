@@ -11,7 +11,7 @@ Go to the 'Installation' folder. Then follow these simple steps -
 <li>Double click the file called "installer.bat" and wait till the installation process is finished.</li>
 </ol>
 </br>
-Now you are done.....Come back from the 'Installation' folder, open up the file called ``Artificial Intelligence.py`` and enjoy... :)
+Now you are done.....Come back from the 'Installation' folder, open up the file called `Artificial Intelligence.py` and enjoy... :)
 </br>
 
 If you are having any problem, feel free to contact me:
