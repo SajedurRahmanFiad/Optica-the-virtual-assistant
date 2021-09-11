@@ -1,0 +1,32 @@
+#############################################################
+
+Follow these steps carefully to install optica in your device
+
+#############################################################
+
+
+
+First, Download and install the latest version of python from python.org
+Then follow these simple steps -
+
+1. Remember to check the box called 'save python to path' while installing python. Otherwise Optica won't work
+2. Double click the file called "installer.bat" and wait till the installation process is finished.
+
+
+Now you are done.....Come back from the 'Installation' folder, open up the file called "Artificial Intelligence.py" and enjoy... :)
+
+
+If you are having any problem, feel free to contact me - 
+		Gmail - neural.gen.official@gmail.com
+		Facebook - https://www.facebook.com/neuralgen
+
+
+
+			____________   ____       _____
+		       /              /   |      /     \
+		      /		  O  /    |     /       \
+MADE BY -            /_______       /     |    /        |
+		    /		/  /______|   /         |
+                   /	       /  /       |  /         /
+                  /           /  /        | /         /
+                 /           /  /         |/________/
