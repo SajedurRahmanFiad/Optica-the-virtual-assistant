@@ -3,7 +3,7 @@
 ## How to install:
 Follow these steps carefully to install optica in your device
 </br>
-First, Download and install the latest version of python from [python.org](python.org)
+First, Download and install the latest version of python from [python.org](https://www.python.org/downloads/)
 Go to the 'Installation' folder. Then follow these simple steps -
 </br>
 <ol>
