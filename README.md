@@ -14,9 +14,9 @@ Go to the 'Installation' folder. Then follow these simple steps -
 Now you are done.....Come back from the 'Installation' folder, open up the file called __Artificial Intelligence.py__ and enjoy... :)
 </br>
 
-If you are having any problem, feel free to contact me - 
-	Gmail - neural.gen.official@gmail.com
-		Facebook - https://www.facebook.com/neuralgen
+If you are having any problem, feel free to contact me:
+  - Gmail] - neural.gen.official@gmail.com
+  - Facebook - https://www.facebook.com/neuralgen
 
 Made by:- 
 ```
