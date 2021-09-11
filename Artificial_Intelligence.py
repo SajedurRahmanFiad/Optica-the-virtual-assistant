@@ -1,7 +1,7 @@
 import datetime
+import pytz
 import pyttsx3
 import speech_recognition as sr
-import time
 import os
 import random
 import pyjokes
@@ -12,19 +12,12 @@ import webbrowser
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from googletrans import Translator
-from bs4 import BeautifulSoup
 import requests
 import time
 from tkinter import filedialog
 from tkinter import *
-import sys
-import win32api
-import nltk
-import imageio
-import scipy.ndimage
 import cv2
-import numpy as np
-import pytz
+import freegames
 
 
 os.system("title Artificial Intelligence")
@@ -306,7 +299,7 @@ def main():
                 speak("It's 5 to " + str(hour+1))
 
             else:
-                speak("It's " + str(hour) + str(minute))
+                speak("It's " + str(hour) + " hours and " + str(minute) + " minutes")
 
 
         elif 'day' in query and 'today' in query:
