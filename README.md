@@ -11,11 +11,11 @@ Go to the 'Installation' folder. Then follow these simple steps -
 <li>Double click the file called "installer.bat" and wait till the installation process is finished.</li>
 </ol>
 </br>
-Now you are done.....Come back from the 'Installation' folder, open up the file called ``Artificial Intelligence.py`` and enjoy... :)
+Now you are done.....Come back from the 'Installation' folder, open up the file called ```Artificial_Intelligence.py``` and enjoy... :)
 </br>
 
 If you are having any problem, feel free to contact me:
-  - Send me a [Email](neural.gen.official@gmail.com)
+  - Send me a [Email](mailto:neural.gen.official@gmail.com?subject=[GitHub]Optica)
   - Knock me at [Facebook](https://www.facebook.com/neuralgen)
 
 Made by:- 
