@@ -4,6 +4,7 @@
 :start
 cls
 
+title [OPTICA] Installation
 set python_ver=36
 mode 800
 color 2
@@ -26,3 +27,7 @@ pip install pywhatkit
 pip install countryinfo
 pip install freegames
 pip install googletrans==3.1.0a0
+pip install serial
+pip install pyserial
+pip install sockets
+pip install pyfirmata
