@@ -15,7 +15,7 @@ Now you are done.....Come back from the 'Installation' folder, open up the file 
 </br>
 
 If you are having any problem, feel free to contact me:
-  - Send me a [Email](neural.gen.official@gmail.com)
+  - Send me a [Email](www.neural.gen.official@gmail.com)
   - Knock me at [Facebook](https://www.facebook.com/neuralgen)
 
 Made by:- 
