@@ -5,6 +5,23 @@ import speech_recognition as sr
 import os
 import requests
 from googletrans import Translator
+import random
+import pyjokes
+import wikipedia
+from countryinfo import CountryInfo
+import smtplib
+import webbrowser
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import time
+from tkinter import filedialog
+from tkinter import *
+import cv2
+import freegames
+import serial.tools.list_ports
+import pyfirmata
+import socket
+import pywhatkit
 
 
 os.system("title Artificial Intelligence")
@@ -23,80 +40,9 @@ def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
-    
-try:
-    import pywhatkit
-except:
-    os.system('mode 800')
-    os.system('color 4')
-    print("\n\nNo Internet Connection\n\n")
-    os.system('color 7')
-    print('''                                                                     `.--://+++++++//:--.`
-                                                                 .-/+sssssssssssssssssssssss+/-.
-                                                             .:+sssssssssssssssssssssssssssssssss+:.
-                                                          ./sssssssssssssssssssssssssssssssssssssssso/.
-                                                       `:ossssssssssssssssssssssssssssssssssssssssssssso:`
-                                                     ./ssssssssssssssso+/:-.``     ``.-:/+ssssssssssssssss/`
-                                                   `+ssssssssssssso/-`                     `-/osssssssssssss/`
-                                                  :sssssssssssssss:                            `:ossssssssssss:
-                                                .ossssssssssssssssso.                             ./ssssssssssso`
-                                               -sssssssssssssssssssss+`                             `/sssssssssss-
-                                              :ssssssssss+./sssssssssss/-:/+ossssssso+/:.`            `+ssssssssss-
-                                             :ssssssssss:   .+sssyhdmNMMMMMMMMMMMMMMMMMMMMNdy+-`        :ssssssssss-
-                                            .ssssssssss.     -ymMMMMMMMMMMMMNmmmmmmNNMMMMMMMMMMMds:`     .ssssssssss.
-                                           `osssssssss.   :yNMMMMMMMNmdhhyys:        `.-/oydMMMMMMMMh+`   .ssssssssso
-                                           /sssssssss- .sNMMMMMNhosyssssssssso-             `-+yNMMMMMMh/  :sssssssss:
-                                          `sssssssss+:hMMMMMNy:`   -osssssyyhhhs//::-`           -omMMMMMNo`+sssssssss
-                                          -sssssssss:yMMMMh/        .sdmNMMMMMMMMMMMMMMmhs/.        -yNMMMm/-sssssssss-
-                                          /sssssssso  .yy.      `:smMMMMMMMMMMMMMMMMMMMMMMMMNh+.      `od+   sssssssss/
-                                          ossssssss+          :yNMMMMMMmhhdhyyyyyyyyyooymMMMMMMMd+`          +ssssssss+
-                                          ossssssss/        /mMMMMMms/`   :sssssssssss/` `:odMMMMMNs.        +ssssssss+
-                                          +ssssssss+        -yMMNs-        `+syyyyysssss-    .omMMN+`        +ssssssss+
-                                          /sssssssss          -+`      `:oydNMMMMMMMNNdhyo.     :+`          sssssssss/
-                                          -sssssssss-               `/hNMMMMMMMMMMMMMMMMMNd+`               -sssssssss-
-                                           ssssssssso              :NMMMMMds+:---+hhdmMMMMMMd:              osssssssso
-                                           :sssssssss:              -hMh/`        .ossshmMMdyso.           :sssssssss:
-                                            osssssssss-               `       `...` -ssssyysssss/`        -ssssssssso
-                                            .ssssssssss-                  `+hNMMMMMms:/sssssssssss:      -ssssssssss`
-                                             -ssssssssss/                 -hMMMMMMMMNo`.+sssssssssso.   /ssssssssss.
-                                              -sssssssssso.                 -hMMMMNo`    -sssssssssss+-ossssssssss.
-                                               .ossssssssss+.                 :hNo`       `/sssssssssssssssssssso.
-                                                `+sssssssssss+-                 .           .+sssssssssssssssss+`
-                                                  -sssssssssssso/.                            -sssssssssssssso-
-                                                   `:ssssssssssssss+:.                     .:+ssssssssssssss:
-                                                     `:sssssssssssssssso+/:-...```...-:/+ossssssssssssssso:`
-                                                        -+sssssssssssssssssssssssssssssssssssssssssssss+-
-                                                          `:osssssssssssssssssssssssssssssssssssssss+:`
-                                                             `-/ossssssssssssssssssssssssssssssso/-`
-                                                                 `.:/ossssssssssssssssssssso/:.`
-                                                                       ``.-::://///:::-.``
-                                                     ''')
-
-    speak("You are not connected to the internet. Please try again later\n")
-    os.system('pause')
-    quit()
-
-
-import random
-import pyjokes
-import wikipedia
-from countryinfo import CountryInfo
-import smtplib
-import webbrowser
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-import time
-from tkinter import filedialog
-from tkinter import *
-import cv2
-import freegames
-import serial.tools.list_ports
-import pyfirmata
-import socket
-
 
 city = requests.get('https://ipinfo.io/').json()['city']
-IST = pytz.timezone('Asia/Dhaka')
+IST = pytz.timezone('Asia/'+city)
 greetings = ["Hi sir", "Hi", "Hello", "Hello Sir", "Hola?", "I am here sir?", "Yes sir?", "How can I help you sir?", "How may I help you sir?"]
 endings = ["bye, take care", "Bye Sir, have a good day", "Ok, Bye, take care", "Bye, have a good day"]
 thanking = ["Thanks", "Thank You", "Thanks you sir", "Thanks a lot", "Thanks you so much"]
@@ -253,7 +199,7 @@ def initialize_hardware():
         print("[INFO] Communication Successfully established...\n\n")
         hardwareFound = True
     except:
-        print("[INFO] Failed to communicate...\n\n")
+        print("[INFO] Failed to communicate...(Not a problem at all)\n\n")
         hardwareFound = False
 
 
@@ -641,6 +587,57 @@ def main():
 
                     
 if __name__ == "__main__":
+    if connected():
+        pass
+    else:
+        os.system('mode 800')
+        os.system('color 4')
+        print("\n\nNo Internet Connection\n\n")
+        os.system('color 7')
+        print('''                                                                     `.--://+++++++//:--.`
+                                                                     .-/+sssssssssssssssssssssss+/-.
+                                                                 .:+sssssssssssssssssssssssssssssssss+:.
+                                                              ./sssssssssssssssssssssssssssssssssssssssso/.
+                                                           `:ossssssssssssssssssssssssssssssssssssssssssssso:`
+                                                         ./ssssssssssssssso+/:-.``     ``.-:/+ssssssssssssssss/`
+                                                       `+ssssssssssssso/-`                     `-/osssssssssssss/`
+                                                      :sssssssssssssss:                            `:ossssssssssss:
+                                                    .ossssssssssssssssso.                             ./ssssssssssso`
+                                                   -sssssssssssssssssssss+`                             `/sssssssssss-
+                                                  :ssssssssss+./sssssssssss/-:/+ossssssso+/:.`            `+ssssssssss-
+                                                 :ssssssssss:   .+sssyhdmNMMMMMMMMMMMMMMMMMMMMNdy+-`        :ssssssssss-
+                                                .ssssssssss.     -ymMMMMMMMMMMMMNmmmmmmNNMMMMMMMMMMMds:`     .ssssssssss.
+                                               `osssssssss.   :yNMMMMMMMNmdhhyys:        `.-/oydMMMMMMMMh+`   .ssssssssso
+                                               /sssssssss- .sNMMMMMNhosyssssssssso-             `-+yNMMMMMMh/  :sssssssss:
+                                              `sssssssss+:hMMMMMNy:`   -osssssyyhhhs//::-`           -omMMMMMNo`+sssssssss
+                                              -sssssssss:yMMMMh/        .sdmNMMMMMMMMMMMMMMmhs/.        -yNMMMm/-sssssssss-
+                                              /sssssssso  .yy.      `:smMMMMMMMMMMMMMMMMMMMMMMMMNh+.      `od+   sssssssss/
+                                              ossssssss+          :yNMMMMMMmhhdhyyyyyyyyyooymMMMMMMMd+`          +ssssssss+
+                                              ossssssss/        /mMMMMMms/`   :sssssssssss/` `:odMMMMMNs.        +ssssssss+
+                                              +ssssssss+        -yMMNs-        `+syyyyysssss-    .omMMN+`        +ssssssss+
+                                              /sssssssss          -+`      `:oydNMMMMMMMNNdhyo.     :+`          sssssssss/
+                                              -sssssssss-               `/hNMMMMMMMMMMMMMMMMMNd+`               -sssssssss-
+                                               ssssssssso              :NMMMMMds+:---+hhdmMMMMMMd:              osssssssso
+                                               :sssssssss:              -hMh/`        .ossshmMMdyso.           :sssssssss:
+                                                osssssssss-               `       `...` -ssssyysssss/`        -ssssssssso
+                                                .ssssssssss-                  `+hNMMMMMms:/sssssssssss:      -ssssssssss`
+                                                 -ssssssssss/                 -hMMMMMMMMNo`.+sssssssssso.   /ssssssssss.
+                                                  -sssssssssso.                 -hMMMMNo`    -sssssssssss+-ossssssssss.
+                                                   .ossssssssss+.                 :hNo`       `/sssssssssssssssssssso.
+                                                    `+sssssssssss+-                 .           .+sssssssssssssssss+`
+                                                      -sssssssssssso/.                            -sssssssssssssso-
+                                                       `:ssssssssssssss+:.                     .:+ssssssssssssss:
+                                                         `:sssssssssssssssso+/:-...```...-:/+ossssssssssssssso:`
+                                                            -+sssssssssssssssssssssssssssssssssssssssssssss+-
+                                                              `:osssssssssssssssssssssssssssssssssssssss+:`
+                                                                 `-/ossssssssssssssssssssssssssssssso/-`
+                                                                     `.:/ossssssssssssssssssssso/:.`
+                                                                           ``.-::://///:::-.``
+                                                         ''')
+
+        speak("You are not connected to the internet. Please try again later\n")
+        os.system('pause')
+        quit()
     os.system('cls')
     print("[INFO] Starting Artificial Intelligence...\n")
     initialize_hardware()
