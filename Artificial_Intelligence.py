@@ -3,25 +3,11 @@ import pytz
 import pyttsx3
 import speech_recognition as sr
 import os
-import random
-import pyjokes
-import wikipedia
-from countryinfo import CountryInfo
-import smtplib
-import webbrowser
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from googletrans import Translator
 import requests
-import time
-from tkinter import filedialog
-from tkinter import *
-import cv2
-import freegames
+from googletrans import Translator
 
 
 os.system("title Artificial Intelligence")
-city = requests.get('https://ipinfo.io/').json()['city']
 trans = Translator()
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -86,13 +72,32 @@ except:
                                                                        ``.-::://///:::-.``
                                                      ''')
 
-    speak("You are not connected to the internet. Please try again later")
-    time.sleep(4)
+    speak("You are not connected to the internet. Please try again later\n")
+    os.system('pause')
     quit()
 
 
+import random
+import pyjokes
+import wikipedia
+from countryinfo import CountryInfo
+import smtplib
+import webbrowser
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import time
+from tkinter import filedialog
+from tkinter import *
+import cv2
+import freegames
+import serial.tools.list_ports
+import pyfirmata
+import socket
+
+
+city = requests.get('https://ipinfo.io/').json()['city']
 IST = pytz.timezone('Asia/Dhaka')
-greetings = ["Hi sir", "Hi", "Hello", "Hello Sir", "Hola?", "I am here sir?", "Yes sir?", "How can I help you sir?", "How may I help you sir?", "May I help you sir?", "Can I help you sir?", "It's my pleasure to help you sir?"]
+greetings = ["Hi sir", "Hi", "Hello", "Hello Sir", "Hola?", "I am here sir?", "Yes sir?", "How can I help you sir?", "How may I help you sir?"]
 endings = ["bye, take care", "Bye Sir, have a good day", "Ok, Bye, take care", "Bye, have a good day"]
 thanking = ["Thanks", "Thank You", "Thanks you sir", "Thanks a lot", "Thanks you so much"]
 welcome = ["Welcome sir", "you are most welcome", "my pleasure", "Sounds good"]
@@ -115,7 +120,7 @@ Countries = [
 ordinal_numbers = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth',
     'twentieth', 'twenty first', 'twenty second', 'twenty third', 'twenty fourth', 'twenty fifth', 'twenty sixth', 'twenty seventh', 'twenty eighth', 'twenty ninth', 'thirtieth', 'thirty first', 'thirty second']
 
-xyz = ['the', 'of', 'what']
+hardwareFound, board, lightOn = True, "", False
 
 days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -162,7 +167,7 @@ def takeCommand():
         print("Callibrating...")
         r.adjust_for_ambient_noise(source, duration=1)
         print('Listening...')
-        r.pause_threshold = 10
+        r.pause_threshold = 1
         audio = r.listen(source)
     try:
         print('         Recognizing...')
@@ -176,17 +181,19 @@ def takeCommand():
 
 def OpenFile(caption):
         Tk().withdraw()
-        filename = filedialog.askopenfilename(initialdir = "/",title = caption,filetypes = (("Images",".jpg .jpeg .png .webp"),("all files","*.*")))
+        filename = filedialog.askopenfilename(initialdir = "/",title = caption,filetypes = (("Images",".jpg .jpeg .png"),("all files","*.*")))
         return filename
 
     
 def SendMail():
-        sender_address = input("Sender : ")
+        print("[INFO] Getting things ready...\n")
+        time.sleep(1)
         speak("Please enter your email address")
-        sender_pass = input("Password : ")
+        sender_address = input("Sender : ")
         speak("Enter your password")
-        receiver_address = input("Receiver : ")
+        sender_pass = input("Password : ")
         speak("Enter Receiver's email address")
+        receiver_address = input("Receiver : ")
         message = MIMEMultipart()
         message['From'] = sender_address
         message['To'] = receiver_address
@@ -196,7 +203,7 @@ def SendMail():
         mail_content = input("Content :  ")
         message.attach(MIMEText(mail_content, 'plain'))
         session = smtplib.SMTP('smtp.gmail.com', 587)
-        print("\n[INFO] Sending...\n\n")
+        print("\n[INFO] Sending...\n")
         session.starttls()
         try:
             session.login(sender_address, sender_pass)
@@ -222,46 +229,130 @@ def toBangla(word):
     return str(translated.text)
 
 
-def toEnglish(word):
+def toEnglsh(word):
     try:
         translated = trans.translate(word, dest='en')
     except:
         return word
     return str(translated.text)
 
+
+def initialize_hardware():
+    global board
+    global hardwareFound
+    
+    print("[INFO] Initializing...")
+    time.sleep(1)
+    try:
+        ports = list(serial.tools.list_ports.comports())
+        for p in ports:
+            if "Arduino" in p.description:
+                port = list(p)[0]
+
+        board = pyfirmata.Arduino(port)
+        print("[INFO] Communication Successfully established...\n\n")
+        hardwareFound = True
+    except:
+        print("[INFO] Failed to communicate...\n\n")
+        hardwareFound = False
+
+
+def connected():
+    try:
+        socket.create_connection(("1.1.1.1", 53))
+        return True
+    except OSError:
+        pass
+    return False
+
     
 def main():
+   global lightOn
+
    wishMe()
    while True:
+
+        if connected():
+            pass
+        else:
+            os.system('cls')
+            print("\nOops! You are disconnected. Try connecting to the internet\n")
+            os.system('pause')
+            quit()
+
+            
         hour = int(datetime.datetime.now(IST).strftime('%H')) % 12
         minute = int(datetime.datetime.now(IST).strftime('%M'))
         query = takeCommand().lower()
-        if 'open' in query:
+
+
+
+        ##  Hardware part  #######################
+        
+        if ('light' in query or 'led' in query) and 'on' in query:  # If asked to turn the ight on
+            if hardwareFound == True:  # If arduino is connected
+                if lightOn != True: # If the light is turned off
+                    speak('Turning the light on')
+                    board.digital[13].write(1)
+                    lightOn = True
+
+                else:  # If the light is turned on
+                    speak("Hey! the light is already turned on")
+                    
+            else:  # If arduino isn't connected
+                speak(random.choice(["Sorry, You don't have an arduino connected", "Please try connecting the arduino first"]))
+
+
+        elif ('light' in query or 'led' in query) and ('off' in query or 'of' in query):  # If asked to turn the light off
+            if hardwareFound:  # If arduino is connected
+                if lightOn: # If the light is turned on
+                    speak('Turning the light off')
+                    board.digital[13].write(0)
+                    lightOn = False
+
+                else:  # If the light is turned off
+                    speak("Hey! the light is already turned off")
+                    
+            else:  # If arduino isn't connected
+                speak(random.choice(["Sorry, You don't have an arduino connected", "Please try connecting the arduino first"]))
+
+        ##  Hardware part ends here  ############
+
+
+
+        elif 'open' in query:
             what_to_open = query.replace('open ', '').strip().upper()
 
             
-            ##########################################################################        Variables for os.system        ########################################################################
+            #########################################        Opening softwares and files        ########################################
             if what_to_open.find('BROWSER') != -1 or what_to_open.find('GOOGLE') != -1 or what_to_open.find('CHROME') != -1:
                 try:
                     os.startfile('C:\\Program Files\Google\Chrome\Application\chrome.exe')
                     speak("Sure, here is Google Chrome")
                 except FileNotFoundError:
                     speak("Sorry, I can't navigate google chrome or it doesn't exist in your computer")
+
             elif what_to_open.find('NOTE') != -1 or what_to_open.find('NOTES') != -1 or what_to_open.find('NOTEPAD') != -1:
                 try:
                     os.system('notepad')
                     speak("Sure, here is your notepad")
                 except FileNotFoundError:
                     speak("Sorry, I can't navigate that")
+
             elif 'CALCULATOR' in what_to_open:
                 try:
                     os.system('calc')
                     speak("Sure, here is your calculator")
                 except FileNotFoundError:
                     speak("Sorry, I can't navigate that")
+
+            elif 'YOUTUBE' in what_to_open:
+                speak("Opening youtube")
+                webbrowser.open('https://youtube.com', new=1)
+            
             else:
-                speak("I'm not sure I understand or I can't find it")
-            ##########################################################################################################################################################################################
+                speak("I'm not sure I understand or I don't know what it is.")
+            ############################################################################################################################
 
 
         elif 'draw' in query:
@@ -302,14 +393,15 @@ def main():
                 speak("It's " + str(hour) + " hours and " + str(minute) + " minutes")
 
 
-        elif 'day' in query and 'today' in query:
+        elif ' day ' in query and 'today' in query:
             speak("Today is " + str(datetime.datetime.today().strftime("%A")))
 
 
         elif 'date' in query and 'today' in query:
             date = int(datetime.datetime.now().day)
             month = int(datetime.datetime.now().month)
-            speak("It's " + ordinal_umbers[date] + " " + months[month])
+            year = int(datetime.datetime.now().year)
+            speak("It's " + ordinal_numbers[date] + " " + months[month] + " " + str(year))
 
             
         elif 'translate' in query or 'meaning' in query:
@@ -375,7 +467,7 @@ def main():
 
             
         elif query.find('bye') != -1:
-            speak(random.choice(endings) + " don't forget to leave a feedback about me.")
+            speak(random.choice(endings) + ". don't forget to leave a feedback about me.")
             exit()
 
             
@@ -549,6 +641,8 @@ def main():
 
                     
 if __name__ == "__main__":
-    print("[INFO] Starting Artificial Intelligence...\n\n")
+    os.system('cls')
+    print("[INFO] Starting Artificial Intelligence...\n")
+    initialize_hardware()
     time.sleep(1)
     main()
