@@ -24,6 +24,9 @@ import socket
 import pywhatkit
 
 
+
+###############################################      Variables and initializations     ##########################################################
+
 os.system("title Artificial Intelligence")
 trans = Translator()
 engine = pyttsx3.init('sapi5')
@@ -34,12 +37,6 @@ voice_id = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN
             #       HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-GB_HAZEL_11.0
             #       HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-US_DAVID_11.0
 engine.setProperty('voice', voice_id)
-
-
-def speak(audio):
-    engine.say(audio)
-    engine.runAndWait()
-
 
 city = requests.get('https://ipinfo.io/').json()['city']
 IST = pytz.timezone('Asia/'+city)
@@ -71,6 +68,16 @@ hardwareFound, board, lightOn = True, "", False
 days = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
+#################################################################################################################################################################################################################################################
+
+
+
+
+def speak(audio):
+    engine.say(audio)
+    engine.runAndWait()
+
+    
 def strip_brackets(string):
     string = "" + str(string)
     d = 0
