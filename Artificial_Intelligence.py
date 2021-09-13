@@ -25,6 +25,7 @@ import pywhatkit
 
 
 
+
 ###############################################      Variables and initializations     ##########################################################
 
 os.system("title Artificial Intelligence")
@@ -210,6 +211,10 @@ def initialize_hardware():
         hardwareFound = False
 
 
+def write(pin, state):
+    board.digital[pin].write(state)
+
+
 def connected():
     try:
         socket.create_connection(("1.1.1.1", 53))
@@ -224,7 +229,7 @@ def main():
 
    wishMe()
    while True:
-
+       
         if connected():
             pass
         else:
@@ -246,7 +251,7 @@ def main():
             if hardwareFound == True:  # If arduino is connected
                 if lightOn != True: # If the light is turned off
                     speak('Turning the light on')
-                    board.digital[13].write(1)
+                    write(13, 1)
                     lightOn = True
 
                 else:  # If the light is turned on
@@ -260,7 +265,7 @@ def main():
             if hardwareFound:  # If arduino is connected
                 if lightOn: # If the light is turned on
                     speak('Turning the light off')
-                    board.digital[13].write(0)
+                    write(13, 0)
                     lightOn = False
 
                 else:  # If the light is turned off
@@ -323,6 +328,12 @@ def main():
             speak("Done. I have saved my sketch to your Desktop")
 
 
+        elif 'you' in query and ('good' in query or 'awesome' in query or 'cool' in query or 'great' in query):
+            speak(random.choice(thanking) + ". Please leave a feedback about me.")
+            os.startfile("Feedback.exe")
+            os.system('pause')
+
+
         elif 'time' in query:
             if minute == 0:
                 speak("It's " + str(hour) + " o clock")
@@ -346,15 +357,15 @@ def main():
                 speak("It's " + str(hour) + " hours and " + str(minute) + " minutes")
 
 
-        elif ' day ' in query and 'today' in query:
-            speak("Today is " + str(datetime.datetime.today().strftime("%A")))
-
-
         elif 'date' in query and 'today' in query:
             date = int(datetime.datetime.now().day)
             month = int(datetime.datetime.now().month)
             year = int(datetime.datetime.now().year)
             speak("It's " + ordinal_numbers[date] + " " + months[month] + " " + str(year))
+
+
+        elif ' day ' in query and 'today' in query:
+            speak("Today is " + str(datetime.datetime.today().strftime("%A")))
 
             
         elif 'translate' in query or 'meaning' in query:
